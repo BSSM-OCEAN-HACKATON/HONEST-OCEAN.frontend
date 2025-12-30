@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { TabBarGradientProvider } from "./components/ui/TabBarGradientContext";
+import TabBarGradient from "./components/ui/TabBarGradient";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +24,10 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-white">
-        {children}
+        <TabBarGradientProvider>
+          {children}
+          <TabBarGradient />
+        </TabBarGradientProvider>
       </body>
     </html>
   );
