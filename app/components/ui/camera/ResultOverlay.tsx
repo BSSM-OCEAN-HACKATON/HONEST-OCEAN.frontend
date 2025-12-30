@@ -21,8 +21,14 @@ const ResultOverlay = ({ data, onPurchase, onBrowse }: ResultOverlayProps) => {
           <p className="font-bold text-24 text-gray-003 text-center">
             적정가 {data.appropriatePrice.toLocaleString()}원
           </p>
-          <p className="font-regular text-16 text-gray-secondary leading-[1.3]">
-            상인이 제시한 가격이 적정가보다 {data.priceDifference}% 높아요.
+          <p className="font-regular text-16 text-gray-secondary leading-[1.3] text-center">
+            상인이 <span style={{ color: data.priceDifference <= 0 ? '#089700' : '#EB4343' }}>
+              {(Math.abs(data.priceDifference) / 100 + 1).toFixed(1)}배
+            </span> 더{' '}
+            <span style={{ color: data.priceDifference <= 0 ? '#089700' : '#EB4343' }}>
+              {data.priceDifference <= 0 ? '낮은' : '높은'}
+            </span>
+            {' '}가격을 제시했어요.
           </p>
         </div>
 
