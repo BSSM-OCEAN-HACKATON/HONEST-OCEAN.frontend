@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --max-width-mobile: 393px; /* 모바일 최대 너비 */
+  --max-width-mobile: 440px; /* 모바일 최대 너비 */
 }
 
 
