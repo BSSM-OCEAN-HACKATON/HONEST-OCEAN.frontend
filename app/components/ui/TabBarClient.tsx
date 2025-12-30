@@ -21,7 +21,7 @@ const TabBarClient = ({ tabs }: TabBarClientProps) => {
   const pathname = usePathname()
 
   const renderedTabs = useMemo(() => (
-    <nav className='bg-white w-full px-8 py-7 fixed bottom-0 left-0 right-0'>
+    <nav className='bg-white w-full px-8 py-7 fixed bottom-0 left-1/2 -translate-x-1/2' style={{ maxWidth: 'var(--max-width-mobile)' }}>
       <ul className='flex justify-around items-center w-full'>
         {tabs.map((tab) => {
           const isSelected = pathname === tab.href

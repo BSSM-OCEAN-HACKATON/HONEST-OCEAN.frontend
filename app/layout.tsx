@@ -1,17 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import TabBar from "./components/ui/TabBar";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,12 +13,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased px-8 pt-9 bg-white`}
-      >
-        {children}
-        <TabBar />
+    <html lang="ko">
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
+      <body className="antialiased bg-white">
+        <div className="mx-auto min-h-screen flex flex-col bg-white" style={{ maxWidth: 'var(--max-width-mobile)' }}>
+          <main className="flex-1 px-8 pt-9">
+            {children}
+          </main>
+          <TabBar />
+        </div>
       </body>
     </html>
   );
