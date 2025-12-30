@@ -56,11 +56,12 @@ const StarRating = ({ rating: initialRating = 0, onRatingChange, maxRating = 5 }
             aria-label={`${i + 1}점`}
           >
             <Image
-              src={`/icon/star/${i < display ? '1' : '0'}.svg`}
+              src={i < display ? '/icon/star/1.svg' : '/icon/star/0.svg'}
               alt={`${i + 1}점`}
               width={48}
               height={48}
               className="w-full h-full"
+              priority={i === 0}
             />
           </button>
         )
