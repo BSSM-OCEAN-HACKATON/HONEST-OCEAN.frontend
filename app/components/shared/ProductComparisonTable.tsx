@@ -45,7 +45,7 @@ const ProductComparisonTable = ({
               상인 제시가
             </p>
             <p className="font-bold text-12 text-gray-003 text-center flex-1">
-              위생
+              가격 차이
             </p>
           </div>
         )}
@@ -87,7 +87,7 @@ const ProductComparisonTable = ({
                 <InfoCardValue value={row.merchantPrice} />
               </div>
               <div className="flex-1">
-                <InfoCardValue value={row.hygiene} />
+                <InfoCardValue value={row.priceDifference} />
               </div>
             </div>
           )

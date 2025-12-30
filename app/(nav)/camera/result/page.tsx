@@ -8,6 +8,7 @@ import ResultOverlay from '@/app/components/ui/camera/ResultOverlay'
 import { useCameraStore } from '@/app/store/cameraStore'
 import { mockCameraResultData } from '@/app/lib/mocks/cameraResult'
 import { saveMerchantRecord } from '@/app/lib/api/merchantRecordSave'
+import { saveMerchantPrice } from '@/app/lib/utils/merchantPriceStorage'
 import type { ResultData } from '@/app/types/camera'
 
 const ResultPage = () => {
@@ -78,6 +79,11 @@ const ResultPage = () => {
       })
 
       console.log('상인 기록 저장 성공:', result)
+
+      // recordId와 상인이 제안한 가격을 로컬 스토리지에 저장
+      if (result.data.recordId) {
+        saveMerchantPrice(result.data.recordId.toString(), formData.pricePerItem)
+      }
     } catch (error) {
       console.error('상인 기록 저장 실패:', error)
     }

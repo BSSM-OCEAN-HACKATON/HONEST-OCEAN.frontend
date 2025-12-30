@@ -15,3 +15,4 @@ export interface ResultData {
   comparisons: ComparisonItem[]
 }
 
+
