@@ -11,9 +11,6 @@ const CameraPage = () => {
 
   const handleCapture = async (imageSrc: string) => {
     try {
-      setIsLoading(true)
-      setError(null)
-
       // public/fish/Go.webp 파일 사용
       const fishImagePath = '/fish/Go.webp'
       const response = await fetch(fishImagePath)
@@ -23,25 +20,31 @@ const CameraPage = () => {
       // 이미지 URL을 저장 (result 페이지에서 표시용)
       setCapturedImage(fishImagePath)
 
-      // API 호출 (임시 길이값 30cm)
+      // 즉시 form 페이지로 이동
+      router.push('/camera/form')
+
+      // 백그라운드에서 API 호출 (응답을 기다리지 않음)
+      setIsLoading(true)
       console.log('Calling API with fishLength: 30')
-      const result = await analyzeFish({
+      analyzeFish({
         image: file,
         fishLength: 30,
       })
-
-      console.log('API Response:', result)
-
-      // 결과 저장
-      setFishAnalysis(result.data)
-
-      // form 페이지로 이동
-      router.push('/camera/form')
+        .then((result) => {
+          console.log('API Response:', result)
+          setFishAnalysis(result.data)
+          setError(null)
+        })
+        .catch((err) => {
+          setError(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다')
+          console.error('Fish analysis failed:', err)
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
     } catch (err) {
       setError(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다')
-      console.error('Fish analysis failed:', err)
-    } finally {
-      setIsLoading(false)
+      console.error('Image loading failed:', err)
     }
   }
 
