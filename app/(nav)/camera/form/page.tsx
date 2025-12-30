@@ -1,17 +1,106 @@
 'use client'
 
-import PriceForm from '@/app/components/ui/camera/PriceForm'
+import { useRouter } from 'next/navigation'
+import { useState, useMemo } from 'react'
+import QuantityButtons from '@/app/components/shared/QuantityButtons'
+import NumericKeypad from '@/app/components/shared/NumericKeypad'
 import Button from '@/app/components/shared/Button'
+import { useCameraStore } from '@/app/store/cameraStore'
 
 const FormPage = () => {
+  const router = useRouter()
+  const { fishAnalysis, setFormData } = useCameraStore()
+
+  const [totalPrice, setTotalPrice] = useState<number>(fishAnalysis?.marketPrice || 8000)
+  const [quantity, setQuantity] = useState<number>(1)
+  const [showKeypad, setShowKeypad] = useState<boolean>(false)
+
+  const pricePerItem = useMemo(() => {
+    return quantity > 0 ? Math.floor(totalPrice / quantity) : 0
+  }, [totalPrice, quantity])
+
   const handleComplete = () => {
-    // TODO: 완료 로직 구현
-    console.log('완료 버튼 클릭됨')
+    // Form 데이터 저장
+    setFormData({
+      totalPrice,
+      quantity,
+      pricePerItem,
+    })
+
+    // result 페이지로 이동
+    router.push('/camera/result')
+  }
+
+  const handleIncrement = () => {
+    setQuantity((prev) => prev + 1)
+  }
+
+  const handleDecrement = () => {
+    setQuantity((prev) => Math.max(1, prev - 1))
+  }
+
+  const handleNumberClick = (num: string) => {
+    setTotalPrice((prev) => {
+      const newValue = prev * 10 + parseInt(num)
+      return newValue
+    })
+  }
+
+  const handleBackspace = () => {
+    setTotalPrice((prev) => Math.floor(prev / 10))
+  }
+
+  const handleDoubleZero = () => {
+    setTotalPrice((prev) => prev * 100)
   }
 
   return (
     <div className="flex-col justify-center min-h-[calc(100vh-200px)] relative">
-      <PriceForm />
+      <div className="flex-col gap-8">
+        {/* 상인이 제안한 전체 가격 */}
+        <div className="flex-col gap-1 animate-fade-in-up">
+          <label className="text-20 text-gray-003">상인이 제안한 전체 가격</label>
+          <button
+            type="button"
+            onClick={() => setShowKeypad(!showKeypad)}
+            className="text-left text-40 font-bold hover:opacity-80 transition-opacity"
+          >
+            {totalPrice.toLocaleString()}원
+          </button>
+        </div>
+
+        {/* 숫자 키패드 오버레이 */}
+        {showKeypad && (
+          <div className="fixed inset-0 z-50" onClick={() => setShowKeypad(false)}>
+            <div
+              className="fixed bottom-0 left-0 right-0 animate-slide-up"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <NumericKeypad
+                onNumberClick={handleNumberClick}
+                onBackspace={handleBackspace}
+                onDoubleZero={handleDoubleZero}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* 구매할 상품의 갯수 */}
+        <div className="flex-col gap-1 space-between animate-fade-in-up-delay-1">
+          <label className="text-20 text-gray-003">구매할 상품의 갯수</label>
+          <div className="flex-row items-center gap-2 justify-between font-bold">
+            <span className="text-40">{quantity}개</span>
+            <QuantityButtons onIncrement={handleIncrement} onDecrement={handleDecrement} />
+          </div>
+        </div>
+
+        {/* 상인이 제안한 개당 가격 */}
+        <div className="flex-col gap-1 animate-fade-in-up-delay-2">
+          <label className="text-20 text-gray-003">상인이 제안한 개당 가격</label>
+          <div className="text-40 font-bold">{pricePerItem.toLocaleString()}원</div>
+        </div>
+      </div>
+
       <div className="fixed bottom-9 left-0 right-0 z-40 px-9">
         <div className="w-full flex mx-auto" style={{ maxWidth: 'var(--max-width-mobile)' }}>
           <Button text="완료했어요" onClick={handleComplete} />
