@@ -83,9 +83,10 @@ const ResultPage = () => {
         <div
           className="fixed left-0 right-0 z-0"
           style={{
-            top: data.isProhibited ? '0' : '-30%',
+            top: '-30%',
             height: '100vh',
             transform: 'scaleX(-1)',
+            opacity: data.isProhibited ? 0.8 : 1,
           }}
         >
           <Image
