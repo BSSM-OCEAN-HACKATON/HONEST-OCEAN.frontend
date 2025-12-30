@@ -2,7 +2,7 @@ export interface ProductComparisonRow {
   imageUrl: string
   estimatedWeight: string
   merchantPrice: string
-  hygiene: string
+  priceDifference: string
 }
 
 export interface ProductComparisonTableProps {
@@ -18,4 +18,5 @@ export interface ProductComparisonTable {
   showTitle: boolean
   rows: ProductComparisonRow[]
 }
+
 
