@@ -27,7 +27,7 @@ const TabBarClient = ({ tabs }: TabBarClientProps) => {
     }
 
     return (
-      <nav className='bg-white w-full px-8 py-7 fixed bottom-0 left-1/2 -translate-x-1/2' style={{ maxWidth: 'var(--max-width-mobile)' }}>
+      <nav className='bg-white w-full px-8 py-7 fixed bottom-0 left-1/2 -translate-x-1/2' style={{ maxWidth: 'var(--max-width-mobile)', zIndex: 9999 }}>
         <ul className='flex justify-around items-center w-full'>
           {tabs.map((tab) => {
             const isSelected = pathname === tab.href
