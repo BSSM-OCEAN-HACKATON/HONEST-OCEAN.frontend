@@ -8,6 +8,7 @@ import ProductComparisonTable from "@/app/components/shared/ProductComparisonTab
 import { useMerchantRecordList } from "@/app/hooks/useMerchantRecordList";
 import { getMerchantPrice } from "@/app/lib/utils/merchantPriceStorage";
 import type { ProductComparisonTable as ProductComparisonTableType } from "@/app/types/product";
+import type { RecordDetail } from "@/app/types/api";
 
 export default function SavePage() {
   const { setEnabled, setChildren } = useTabBarGradient();
