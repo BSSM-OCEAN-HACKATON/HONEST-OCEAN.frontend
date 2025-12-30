@@ -5,6 +5,9 @@ interface FormData {
   totalPrice: number
   quantity: number
   pricePerItem: number
+  merchantWeight: number
+  latitude: number
+  longitude: number
 }
 
 interface CameraStore {
