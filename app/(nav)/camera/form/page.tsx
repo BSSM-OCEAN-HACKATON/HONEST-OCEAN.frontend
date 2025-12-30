@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import QuantityButtons from '@/app/components/shared/QuantityButtons'
 import NumericKeypad from '@/app/components/shared/NumericKeypad'
 import Button from '@/app/components/shared/Button'
@@ -9,16 +9,40 @@ import { useCameraStore } from '@/app/store/cameraStore'
 
 const FormPage = () => {
   const router = useRouter()
-  const { setFormData } = useCameraStore()
+  const { setFormData, fishAnalysis } = useCameraStore()
 
   const [totalPrice, setTotalPrice] = useState<number>(8000)
   const [quantity, setQuantity] = useState<number>(1)
   const [showKeypad, setShowKeypad] = useState<boolean>(false)
   const [isFirstInput, setIsFirstInput] = useState<boolean>(false)
+  const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null)
 
   const pricePerItem = useMemo(() => {
     return quantity > 0 ? Math.floor(totalPrice / quantity) : 0
   }, [totalPrice, quantity])
+
+  // 위치 정보 가져오기
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          })
+          console.log('위치 정보:', position.coords.latitude, position.coords.longitude)
+        },
+        (error) => {
+          console.error('위치 정보 가져오기 실패:', error)
+          // 기본값 설정 (서울시청)
+          setLocation({
+            latitude: 37.5665,
+            longitude: 126.9780,
+          })
+        }
+      )
+    }
+  }, [])
 
   const handleComplete = () => {
     // Form 데이터 저장
@@ -26,6 +50,9 @@ const FormPage = () => {
       totalPrice,
       quantity,
       pricePerItem,
+      merchantWeight: fishAnalysis?.estimatedWeight || 0,
+      latitude: location?.latitude || 37.5665,
+      longitude: location?.longitude || 126.9780,
     })
 
     // result 페이지로 이동
