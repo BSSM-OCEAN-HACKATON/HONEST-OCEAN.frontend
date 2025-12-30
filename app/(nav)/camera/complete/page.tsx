@@ -16,7 +16,7 @@ const CompletePage = () => {
         </p>
         <StarRating rating={rating} onRatingChange={setRating} />
       </div>
-      <div className="fixed bottom-9 left-0 right-0 z-40 px-8">
+      <div className="fixed bottom-9 left-0 right-0 z-40 px-9">
         <div className="w-full flex mx-auto" style={{ maxWidth: 'var(--max-width-mobile)' }}>
           <Button text="완료했어요" onClick={() => router.push('/')} variant="primary" />
         </div>

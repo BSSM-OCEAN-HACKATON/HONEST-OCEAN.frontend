@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import WebCamCamera from '@/app/components/shared/WebCamCamera'
+import WebCamCamera from '@/app/components/ui/camera/WebCamCamera'
 
 export const metadata: Metadata = {
   title: 'Camera Scan',

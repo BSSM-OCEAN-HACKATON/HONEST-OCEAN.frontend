@@ -120,9 +120,9 @@ input {
   outline: none !important;
 }
 
-:root {
+/* :root {
   font-size: 20px;
-}
+} */
 
 /* 키패드 올라오는 애니메이션 */
 @keyframes slideUp {

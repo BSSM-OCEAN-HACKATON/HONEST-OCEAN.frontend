@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import TabBar from '../components/ui/TabBar'
+import TabBar from '../components/ui/tabBar/TabBar'
 
 export default function NavLayout({
   children,
@@ -16,7 +16,7 @@ export default function NavLayout({
 
   return (
     <div className="mx-auto min-h-screen flex flex-col bg-white overflow-x-hidden" style={{ maxWidth: 'var(--max-width-mobile)' }}>
-      <main className={`flex-1 overflow-x-hidden ${needsPadding ? 'px-8 pt-9' : ''}`}>
+      <main className={`flex-1 overflow-x-hidden ${needsPadding ? 'px-9 pt-9' : ''}`}>
         {children}
       </main>
       <TabBar />

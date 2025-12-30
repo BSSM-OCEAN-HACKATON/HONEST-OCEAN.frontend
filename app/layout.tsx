@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { TabBarGradientProvider } from "./components/ui/TabBarGradientContext";
-import TabBarGradient from "./components/ui/TabBarGradient";
+import { TabBarGradientProvider } from "./components/ui/tabBar/TabBarGradientContext";
+import TabBarGradient from "./components/ui/tabBar/TabBarGradient";
 
 export const metadata: Metadata = {
   title: "Create Next App",

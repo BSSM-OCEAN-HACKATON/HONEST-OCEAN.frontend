@@ -1,6 +1,6 @@
 'use client'
 
-import PriceForm from '@/app/components/shared/PriceForm'
+import PriceForm from '@/app/components/ui/camera/PriceForm'
 import Button from '@/app/components/shared/Button'
 
 const FormPage = () => {
@@ -12,7 +12,7 @@ const FormPage = () => {
   return (
     <div className="flex-col justify-center min-h-[calc(100vh-200px)] relative">
       <PriceForm />
-      <div className="fixed bottom-9 left-0 right-0 z-40 px-8">
+      <div className="fixed bottom-9 left-0 right-0 z-40 px-9">
         <div className="w-full flex mx-auto" style={{ maxWidth: 'var(--max-width-mobile)' }}>
           <Button text="완료했어요" onClick={handleComplete} />
         </div>
