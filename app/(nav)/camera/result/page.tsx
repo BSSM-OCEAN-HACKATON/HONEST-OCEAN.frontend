@@ -3,9 +3,9 @@
 import React, { Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import InfoCard from '@/app/components/shared/InfoCard'
-import ComparisonItem from '@/app/components/shared/ComparisonItem'
-import Button from '@/app/components/shared/Button'
+import ProhibitedOverlay from '@/app/components/ui/camera/ProhibitedOverlay'
+import ResultOverlay from '@/app/components/ui/camera/ResultOverlay'
+import type { ResultData } from '@/app/components/ui/camera/types'
 
 function ResultContent() {
   const searchParams = useSearchParams()
@@ -13,13 +13,13 @@ function ResultContent() {
   const imageSrc = searchParams.get('image') || ''
 
   // TODO: 실제 데이터로 교체 필요
-  const data = {
+  const data: ResultData = {
     appropriatePrice: 7000,
     priceDifference: 35,
     riskLevel: '높음',
     servings: '1인분',
     estimatedWeight: '115g',
-    hygieneInfo: '긍정',
+    isProhibited: true, // 금지체장 여부
     comparisons: [
       {
         imageUrl: 'http://localhost:3845/assets/0290102799cfa74d3afcb3b79ae44a54e5c2a286.png',
@@ -49,10 +49,19 @@ function ResultContent() {
     console.log('둘러보기 버튼 클릭됨')
   }
 
+  const handleExit = () => {
+    router.back()
+  }
+
+  const handleReport = () => {
+    // TODO: 제보하기 로직 구현
+    console.log('제보하기 버튼 클릭됨')
+  }
+
   return (
-    <div className="relative flex-col h-screen">
+    <div className="relative flex-col h-screen overflow-hidden">
       {/* 배경 - 이미지가 있으면 이미지, 없으면 검은색 */}
-      <div className="relative h-[346px] shrink-0 bg-black">
+      <div className="fixed inset-0 bg-black -z-10">
         {imageSrc && (
           <Image
             src={imageSrc}
@@ -65,52 +74,12 @@ function ResultContent() {
         )}
       </div>
 
-      {/* 하얀색 오버레이 */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px]">
-        <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-9 min-h-full">
-          {/* 적정가 정보 */}
-          <div className="flex-col gap-[4px] animate-fade-in-up">
-            <p className="font-bold text-24 text-gray-003 text-center">
-              적정가 {data.appropriatePrice.toLocaleString()}원
-            </p>
-            <p className="font-regular text-16 text-gray-secondary leading-[1.3]">
-              상인이 제시한 가격이 적정가보다 {data.priceDifference}% 높아요.
-            </p>
-          </div>
-
-          {/* 정보 카드 그리드 */}
-          <div className="flex gap-[9px] items-center animate-fade-in-up-delay-1">
-            <InfoCard label="바가지 위험도" value={data.riskLevel} />
-            <InfoCard label="인분" value={data.servings} />
-            <InfoCard label="예상무게" value={data.estimatedWeight} />
-            <InfoCard label="위생정보" value={data.hygieneInfo} />
-          </div>
-
-          {/* 비교 섹션 */}
-          <div className="flex-col gap-[12px] animate-fade-in-up-delay-2">
-            <p className="font-bold text-14 text-gray-003">
-              오늘 본 대게와 비교하기
-            </p>
-            <div className="h-px bg-gray-002" />
-            <div className="flex-col gap-[12px]">
-              {data.comparisons.map((item, index) => (
-                <ComparisonItem
-                  key={index}
-                  imageUrl={item.imageUrl}
-                  title={item.title}
-                  description={item.description}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* 액션 버튼 */}
-          <div className="flex gap-[9px] animate-fade-in-up-delay-3">
-            <Button text="구매했어요" onClick={handlePurchase} variant="primary" />
-            <Button text="둘러보기" onClick={handleBrowse} variant="secondary" />
-          </div>
-        </div>
-      </div>
+      {/* 오버레이 - 금지체장이면 검은색, 아니면 하얀색 */}
+      {data.isProhibited ? (
+        <ProhibitedOverlay onExit={handleExit} onReport={handleReport} />
+      ) : (
+        <ResultOverlay data={data} onPurchase={handlePurchase} onBrowse={handleBrowse} />
+      )}
     </div>
   )
 }

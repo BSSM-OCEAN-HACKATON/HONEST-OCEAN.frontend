@@ -5,7 +5,7 @@ import React from 'react'
 interface ButtonProps {
   text: string
   onClick: () => void
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'dark'
   fullWidth?: boolean
 }
 
@@ -13,6 +13,8 @@ const Button = ({ text, onClick, variant = 'primary', fullWidth = true }: Button
   const baseClasses = `flex-center rounded-[12px] px-[23px] py-[10px] ${fullWidth ? 'flex-1' : ''}`
   const variantClasses = variant === 'primary'
     ? 'bg-gray-003 text-white'
+    : variant === 'dark'
+    ? 'bg-gray-004 text-white'
     : 'bg-gray-002 text-[#292929]'
 
   return (
