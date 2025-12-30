@@ -38,3 +38,27 @@ export interface MerchantRecordSaveResponse {
   status: string
   data: Record
 }
+
+// MerchantRecordList API 타입 정의
+
+export interface Location {
+  latitude: number
+  longitude: number
+}
+
+export interface RecordDetail {
+  recordId: string
+  image: string
+  merchantWeight: string
+  data: {
+    location: Location
+  }
+  stats: SeafoodStats
+}
+
+export interface MerchantRecordListResponse {
+  status: string
+  data: {
+    record: RecordDetail[]
+  }
+}
