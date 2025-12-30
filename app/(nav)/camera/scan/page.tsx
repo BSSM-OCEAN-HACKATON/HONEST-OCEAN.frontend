@@ -27,7 +27,7 @@ const CameraPage = () => {
           seafoodType: '고등어',
           marketPrice: 3850,
           estimatedWeight: 0.22,
-          currentlyForbidden: false,
+          currentlyForbidden: false, // false: 정상, true: 금지체장
         }
         setFishAnalysis(mockData)
         setError(null)
