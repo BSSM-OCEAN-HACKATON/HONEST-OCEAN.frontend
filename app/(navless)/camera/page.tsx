@@ -1,10 +1,7 @@
-import Button from '@/app/components/shared/Button'
-import React from 'react'
+import WebCamCamera from '@/app/components/shared/WebCamCamera'
 
 const CameraPage = () => {
-  return (
-    <div><Button text='Take Photo' onClick={() => {}}/></div>
-  )
+  return <WebCamCamera />
 }
 
 export default CameraPage
