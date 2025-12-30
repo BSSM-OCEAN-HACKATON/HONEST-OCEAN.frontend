@@ -4,21 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import InfoCardValue from './InfoCardValue'
 import { useProductSelectionStore } from '@/stores/useProductSelectionStore'
-
-interface ProductComparisonRow {
-  imageUrl: string
-  estimatedWeight: string
-  merchantPrice: string
-  hygiene: string
-}
-
-interface ProductComparisonTableProps {
-  title?: string
-  showTitle?: boolean
-  rows: ProductComparisonRow[]
-  tableIndex?: number
-  isSelecting?: boolean
-}
+import type { ProductComparisonTableProps } from '@/app/types/product'
 
 const ProductComparisonTable = ({ 
   title, 

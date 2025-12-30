@@ -1,12 +1,7 @@
 'use client'
 
 import React from 'react'
-
-interface NumericKeypadProps {
-  onNumberClick: (num: string) => void
-  onBackspace: () => void
-  onDoubleZero: () => void
-}
+import type { NumericKeypadProps } from '@/app/types/common'
 
 const NumericKeypad = ({ onNumberClick, onBackspace, onDoubleZero }: NumericKeypadProps) => {
   const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9']

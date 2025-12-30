@@ -2,12 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-
-interface StarRatingProps {
-  rating?: number
-  onRatingChange?: (rating: number) => void
-  maxRating?: number
-}
+import type { StarRatingProps } from '@/app/types/common'
 
 const StarRating = ({ rating: initialRating = 0, onRatingChange, maxRating = 5 }: StarRatingProps) => {
   const [rating, setRating] = useState(initialRating)

@@ -1,13 +1,7 @@
 'use client'
 
 import React from 'react'
-
-interface ButtonProps {
-  text: string
-  onClick: () => void
-  variant?: 'primary' | 'secondary' | 'dark'
-  fullWidth?: boolean
-}
+import type { ButtonProps } from '@/app/types/common'
 
 const Button = ({ text, onClick, variant = 'primary', fullWidth = true }: ButtonProps) => {
   const baseClasses = `flex-center rounded-[12px] px-[23px] py-[10px] ${fullWidth ? 'flex-1' : ''}`

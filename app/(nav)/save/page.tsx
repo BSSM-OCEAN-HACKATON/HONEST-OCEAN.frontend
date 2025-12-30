@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTabBarGradient } from "@/app/components/ui/tabBar/TabBarGradientContext";
 import Button from "@/app/components/shared/Button";
 import ProductComparisonTable from "@/app/components/shared/ProductComparisonTable";
+import { mockProductComparisonTables } from "@/app/lib/mocks/productComparison";
 
 export default function SavePage() {
   const { setEnabled, setChildren } = useTabBarGradient();
@@ -64,75 +65,7 @@ export default function SavePage() {
     };
   }, [setEnabled, setChildren, buttonContent]);
 
-  const comparisonTables = [
-    {
-      title: "대게",
-      showTitle: true,
-      rows: [
-        {
-          imageUrl: "/images/crab1.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "7000",
-          hygiene: "좋음",
-        },
-        {
-          imageUrl: "/images/crab2.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "6750",
-          hygiene: "좋음",
-        },
-        {
-          imageUrl: "/images/crab2.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "6750",
-          hygiene: "좋음",
-        },
-      ],
-    },
-    {
-      title: "대게",
-      showTitle: true,
-      rows: [
-        {
-          imageUrl: "/images/crab1.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "7000",
-          hygiene: "좋음",
-        },
-        {
-          imageUrl: "/images/crab2.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "6750",
-          hygiene: "좋음",
-        },
-        {
-          imageUrl: "/images/crab2.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "6750",
-          hygiene: "좋음",
-        },
-      ],
-    },
-    {
-      title: "대게",
-      showTitle: true,
-      rows: [
-        {
-          imageUrl: "/images/crab1.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "7000",
-          hygiene: "좋음",
-        },
-        {
-          imageUrl: "/images/crab2.jpg",
-          estimatedWeight: "115g",
-          merchantPrice: "6750",
-          hygiene: "좋음",
-        },
-      ],
-    },
-    
-  ];
+  const comparisonTables = mockProductComparisonTables;
 
   return (
     <div className="flex-col min-h-screen gap-6">

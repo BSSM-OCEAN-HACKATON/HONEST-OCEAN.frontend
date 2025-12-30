@@ -2,11 +2,7 @@
 
 import Image from 'next/image'
 import React from 'react'
-
-interface QuantityButtonsProps {
-  onIncrement?: () => void
-  onDecrement?: () => void
-}
+import type { QuantityButtonsProps } from '@/app/types/common'
 
 const QuantityButtons = ({ onIncrement, onDecrement }: QuantityButtonsProps) => {
   return (

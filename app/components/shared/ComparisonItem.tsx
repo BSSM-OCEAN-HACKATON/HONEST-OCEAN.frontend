@@ -2,12 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-
-interface ComparisonItemProps {
-  imageUrl: string
-  title: string
-  description: string
-}
+import type { ComparisonItemProps } from '@/app/types/common'
 
 const ComparisonItem = ({ imageUrl, title, description }: ComparisonItemProps) => {
   return (

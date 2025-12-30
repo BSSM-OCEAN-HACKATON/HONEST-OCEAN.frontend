@@ -1,10 +1,7 @@
 'use client'
 
 import React from 'react'
-
-interface InfoCardValueProps {
-  value: string
-}
+import type { InfoCardValueProps } from '@/app/types/common'
 
 const InfoCardValue = ({ value }: InfoCardValueProps) => {
   return (

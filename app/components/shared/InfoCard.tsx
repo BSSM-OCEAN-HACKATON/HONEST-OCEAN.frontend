@@ -2,11 +2,7 @@
 
 import React from 'react'
 import InfoCardValue from './InfoCardValue'
-
-interface InfoCardProps {
-  label: string
-  value: string
-}
+import type { InfoCardProps } from '@/app/types/common'
 
 const InfoCard = ({ label, value }: InfoCardProps) => {
   return (

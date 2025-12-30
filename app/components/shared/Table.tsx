@@ -1,23 +1,7 @@
 'use client'
 
 import React from 'react'
-
-interface TableColumn {
-  key: string
-  label: string
-  align?: 'left' | 'center' | 'right'
-}
-
-interface TableRow {
-  [key: string]: React.ReactNode
-}
-
-interface TableProps {
-  title?: string
-  showTitle?: boolean
-  columns: TableColumn[]
-  rows: TableRow[]
-}
+import type { TableProps } from '@/app/types/common'
 
 const Table = ({ title, showTitle = false, columns, rows }: TableProps) => {
   return (

@@ -4,7 +4,7 @@ import React from 'react'
 import InfoCard from '@/app/components/shared/InfoCard'
 import ComparisonItem from '@/app/components/shared/ComparisonItem'
 import Button from '@/app/components/shared/Button'
-import type { ResultData } from './types'
+import type { ResultData } from '@/app/types/camera'
 
 interface ResultOverlayProps {
   data: ResultData
