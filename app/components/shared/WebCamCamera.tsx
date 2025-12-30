@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import Webcam from 'react-webcam'
 
 interface WebCamCameraProps {
@@ -9,7 +9,6 @@ interface WebCamCameraProps {
 
 const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
   const webcamRef = useRef<Webcam>(null)
-  const [imgSrc, setImgSrc] = useState<string | null>(null)
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('user')
 
   const capture = useCallback(() => {
@@ -30,8 +29,7 @@ const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
 
     // 고화질 JPEG로 변환 (품질 0.95)
     const imageSrc = canvas.toDataURL('image/jpeg', 0.95)
-    setImgSrc(imageSrc)
-    
+
     // 콜백 호출
     if (onCapture) {
       onCapture(imageSrc)
@@ -40,10 +38,6 @@ const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
 
   const switchCamera = () => {
     setFacingMode((prev) => (prev === 'user' ? 'environment' : 'user'))
-  }
-
-  const retake = () => {
-    setImgSrc(null)
   }
 
   const videoConstraints = {
