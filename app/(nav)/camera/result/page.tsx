@@ -51,7 +51,6 @@ const ResultPage = () => {
       estimatedWeight: `${fishAnalysis.estimatedWeight}kg`,
       isProhibited: fishAnalysis.currentlyForbidden,
       hygieneInfo: fishAnalysis.currentlyForbidden ? undefined : '-',
-      comparisons: mockCameraResultData.comparisons, // TODO: 실제 비교 데이터로 교체
     }
   }, [fishAnalysis, formData])
 
@@ -143,7 +142,12 @@ const ResultPage = () => {
       {data.isProhibited ? (
         <ProhibitedOverlay onExit={handleExit} onReport={handleReport} />
       ) : (
-        <ResultOverlay data={data} onPurchase={handlePurchase} onBrowse={handleBrowse} />
+        <ResultOverlay
+          data={data}
+          seafoodType={fishAnalysis?.seafoodType}
+          onPurchase={handlePurchase}
+          onBrowse={handleBrowse}
+        />
       )}
     </div>
   )
