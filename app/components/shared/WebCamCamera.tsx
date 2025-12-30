@@ -48,6 +48,9 @@ const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
 
   const videoConstraints = {
     facingMode: facingMode,
+    width: { ideal: 1920 },
+    height: { ideal: 1080 },
+    aspectRatio: { ideal: 16 / 9 },
   }
 
   return (
@@ -57,6 +60,7 @@ const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
+        mirrored={facingMode === 'user'}
         className="w-full h-full object-cover"
       />
       {/* 원형 촬영 버튼 오버레이 */}
