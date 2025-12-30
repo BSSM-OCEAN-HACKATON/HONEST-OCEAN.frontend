@@ -97,3 +97,17 @@ input {
 :root {
   font-size: 20px;
 }
+
+/* 키패드 올라오는 애니메이션 */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
