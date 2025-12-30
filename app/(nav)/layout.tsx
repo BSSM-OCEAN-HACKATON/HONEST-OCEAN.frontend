@@ -11,7 +11,7 @@ export default function NavLayout({
   const pathname = usePathname()
 
   // 패딩이 필요 없는 페이지들
-  const noPaddingPages = ['/camera/scan', '/camera/result']
+  const noPaddingPages = ['/camera/scan', '/camera/result', '/map']
   const needsPadding = !noPaddingPages.includes(pathname)
 
   return (
