@@ -27,8 +27,8 @@ const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
     // 비디오를 canvas에 그리기
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
 
-    // 고화질 JPEG로 변환 (품질 0.95)
-    const imageSrc = canvas.toDataURL('image/jpeg', 0.95)
+    // 최고 화질 JPEG로 변환 (품질 1.0)
+    const imageSrc = canvas.toDataURL('image/jpeg', 1.0)
 
     // 콜백 호출
     if (onCapture) {
