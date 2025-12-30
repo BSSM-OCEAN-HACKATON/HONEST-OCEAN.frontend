@@ -7,6 +7,7 @@ import ProhibitedOverlay from '@/app/components/ui/camera/ProhibitedOverlay'
 import ResultOverlay from '@/app/components/ui/camera/ResultOverlay'
 import { useCameraStore } from '@/app/store/cameraStore'
 import { mockCameraResultData } from '@/app/lib/mocks/cameraResult'
+import { saveMerchantRecord } from '@/app/lib/api/merchantRecordSave'
 import type { ResultData } from '@/app/types/camera'
 
 const ResultPage = () => {
@@ -53,11 +54,42 @@ const ResultPage = () => {
     }
   }, [fishAnalysis, formData])
 
-  const handlePurchase = () => {
+  const saveMerchantRecordData = async () => {
+    if (!capturedImage || !fishAnalysis || !formData) {
+      console.error('필수 데이터가 없습니다')
+      return
+    }
+
+    try {
+      // base64를 File로 변환
+      const response = await fetch(capturedImage)
+      const blob = await response.blob()
+      const file = new File([blob], 'fish.jpg', { type: 'image/jpeg' })
+
+      // API 호출
+      const result = await saveMerchantRecord({
+        image: file,
+        seafoodType: fishAnalysis.seafoodType,
+        marketPrice: fishAnalysis.marketPrice,
+        estimatedWeight: fishAnalysis.estimatedWeight,
+        merchantWeight: formData.merchantWeight,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
+      })
+
+      console.log('상인 기록 저장 성공:', result)
+    } catch (error) {
+      console.error('상인 기록 저장 실패:', error)
+    }
+  }
+
+  const handlePurchase = async () => {
+    await saveMerchantRecordData()
     router.push('/camera/complete')
   }
 
-  const handleBrowse = () => {
+  const handleBrowse = async () => {
+    await saveMerchantRecordData()
     // 분석 데이터 초기화
     reset()
     // 홈으로 이동
