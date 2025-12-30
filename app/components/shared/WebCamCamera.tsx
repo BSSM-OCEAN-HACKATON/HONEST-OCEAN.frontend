@@ -51,14 +51,14 @@ const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
   }
 
   return (
-    <div className="w-full h-screen flex flex-col">
+    <div className="fixed inset-0 w-full h-full">
         <div className="relative w-full h-full">
                 <Webcam
                     audio={false}
                     ref={webcamRef}
                     screenshotFormat="image/jpeg"
                     videoConstraints={videoConstraints}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                 />
           {/* 원형 촬영 버튼 오버레이 */}
           <button
