@@ -7,7 +7,7 @@ import type { QuantityButtonsProps } from '@/app/types/common'
 const QuantityButtons = ({ onIncrement, onDecrement }: QuantityButtonsProps) => {
   return (
     <div
-      className="flex-row gap-[5px] items-center opacity-0 animate-fade-in"
+      className="flex-row gap-[5px] items-center animate-fade-in"
     >
       <button
         onClick={onDecrement}
