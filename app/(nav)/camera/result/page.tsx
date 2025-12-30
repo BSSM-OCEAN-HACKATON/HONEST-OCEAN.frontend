@@ -67,7 +67,7 @@ function ResultContent() {
 
       {/* 하얀색 오버레이 */}
       <div className="bg-white flex-1 rounded-t-[32px]">
-        <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-[36px]">
+        <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-9">
           {/* 적정가 정보 */}
           <div className="flex-col gap-[4px]">
             <p className="font-bold text-24 text-gray-003 text-center">
