@@ -13,6 +13,7 @@ const PriceForm = ({ totalPrice: initialTotalPrice = 8000, onSubmit }: PriceForm
   const [totalPrice, setTotalPrice] = useState<number>(initialTotalPrice);
   const [quantity, setQuantity] = useState<number>(1);
   const [showKeypad, setShowKeypad] = useState<boolean>(false);
+  const [isFirstInput, setIsFirstInput] = useState<boolean>(false);
 
   const pricePerItem = useMemo(() => {
     return quantity > 0 ? Math.floor(totalPrice / quantity) : 0;
@@ -43,10 +44,12 @@ const PriceForm = ({ totalPrice: initialTotalPrice = 8000, onSubmit }: PriceForm
   };
 
   const handleNumberClick = (num: string) => {
-    setTotalPrice((prev) => {
-      const newValue = prev * 10 + parseInt(num);
-      return newValue;
-    });
+    if (isFirstInput) {
+      setIsFirstInput(false);
+      setTotalPrice(parseInt(num));
+    } else {
+      setTotalPrice((prev) => prev * 10 + parseInt(num));
+    }
   };
 
   const handleBackspace = () => {
@@ -64,7 +67,10 @@ const PriceForm = ({ totalPrice: initialTotalPrice = 8000, onSubmit }: PriceForm
         <label className="text-20 text-gray-003">상인이 제안한 전체 가격</label>
         <button
           type="button"
-          onClick={() => setShowKeypad(!showKeypad)}
+          onClick={() => {
+            setShowKeypad(!showKeypad);
+            setIsFirstInput(true);
+          }}
           className="text-left text-40 font-bold hover:opacity-80 transition-opacity"
         >
           {totalPrice.toLocaleString()}원
@@ -75,7 +81,10 @@ const PriceForm = ({ totalPrice: initialTotalPrice = 8000, onSubmit }: PriceForm
       {showKeypad && (
         <div
           className="fixed inset-0 z-50"
-          onClick={() => setShowKeypad(false)}
+          onClick={() => {
+            setShowKeypad(false);
+            setIsFirstInput(false);
+          }}
         >
           <div
             className="fixed bottom-0 left-0 right-0 animate-slide-up"

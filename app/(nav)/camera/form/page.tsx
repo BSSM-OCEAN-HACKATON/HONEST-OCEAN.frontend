@@ -9,11 +9,12 @@ import { useCameraStore } from '@/app/store/cameraStore'
 
 const FormPage = () => {
   const router = useRouter()
-  const { fishAnalysis, setFormData } = useCameraStore()
+  const { setFormData } = useCameraStore()
 
-  const [totalPrice, setTotalPrice] = useState<number>(fishAnalysis?.marketPrice || 8000)
+  const [totalPrice, setTotalPrice] = useState<number>(8000)
   const [quantity, setQuantity] = useState<number>(1)
   const [showKeypad, setShowKeypad] = useState<boolean>(false)
+  const [isFirstInput, setIsFirstInput] = useState<boolean>(false)
 
   const pricePerItem = useMemo(() => {
     return quantity > 0 ? Math.floor(totalPrice / quantity) : 0
@@ -40,10 +41,12 @@ const FormPage = () => {
   }
 
   const handleNumberClick = (num: string) => {
-    setTotalPrice((prev) => {
-      const newValue = prev * 10 + parseInt(num)
-      return newValue
-    })
+    if (isFirstInput) {
+      setIsFirstInput(false)
+      setTotalPrice(parseInt(num))
+    } else {
+      setTotalPrice((prev) => prev * 10 + parseInt(num))
+    }
   }
 
   const handleBackspace = () => {
@@ -62,7 +65,10 @@ const FormPage = () => {
           <label className="text-20 text-gray-003">상인이 제안한 전체 가격</label>
           <button
             type="button"
-            onClick={() => setShowKeypad(!showKeypad)}
+            onClick={() => {
+              setShowKeypad(!showKeypad)
+              setIsFirstInput(true)
+            }}
             className="text-left text-40 font-bold hover:opacity-80 transition-opacity"
           >
             {totalPrice.toLocaleString()}원
@@ -71,7 +77,10 @@ const FormPage = () => {
 
         {/* 숫자 키패드 오버레이 */}
         {showKeypad && (
-          <div className="fixed inset-0 z-50" onClick={() => setShowKeypad(false)}>
+          <div className="fixed inset-0 z-50" onClick={() => {
+            setShowKeypad(false)
+            setIsFirstInput(false)
+          }}>
             <div
               className="fixed bottom-0 left-0 right-0 animate-slide-up"
               onClick={(e) => e.stopPropagation()}
