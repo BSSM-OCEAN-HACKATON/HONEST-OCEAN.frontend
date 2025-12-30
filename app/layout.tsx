@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import TabBar from "./components/ui/TabBar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,12 +22,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-white">
-        <div className="mx-auto min-h-screen flex flex-col bg-white" style={{ maxWidth: 'var(--max-width-mobile)' }}>
-          <main className="flex-1 px-8 pt-9">
-            {children}
-          </main>
-          <TabBar />
-        </div>
+        {children}
       </body>
     </html>
   );
