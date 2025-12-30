@@ -13,6 +13,10 @@ const ResultPage = () => {
   const router = useRouter()
   const { capturedImage, fishAnalysis, formData } = useCameraStore()
 
+  console.log('Result Page - capturedImage:', capturedImage)
+  console.log('Result Page - fishAnalysis:', fishAnalysis)
+  console.log('Result Page - formData:', formData)
+
   // API 응답과 Form 데이터를 결합하여 ResultData 생성
   const data = useMemo<ResultData>(() => {
     if (!fishAnalysis || !formData) {
@@ -44,7 +48,7 @@ const ResultPage = () => {
       servings,
       estimatedWeight: `${fishAnalysis.estimatedWeight}kg`,
       isProhibited: fishAnalysis.currentlyForbidden,
-      hygieneInfo: fishAnalysis.currentlyForbidden ? undefined : '위생 상태 양호',
+      hygieneInfo: fishAnalysis.currentlyForbidden ? undefined : '-',
       comparisons: mockCameraResultData.comparisons, // TODO: 실제 비교 데이터로 교체
     }
   }, [fishAnalysis, formData])
@@ -68,20 +72,28 @@ const ResultPage = () => {
   }
 
   return (
-    <div className="relative flex-col h-screen overflow-hidden">
-      {/* 배경 - 이미지가 있으면 이미지, 없으면 검은색 */}
-      <div className="fixed inset-0 bg-black -z-10">
-        {capturedImage && (
+    <div className="relative flex-col h-screen overflow-hidden bg-[#FF0000]">
+      {/* 배경 이미지 */}
+      {capturedImage && (
+        <div
+          className="fixed left-0 right-0 z-0"
+          style={{
+            top: data.isProhibited ? '0' : '-30%',
+            height: '100vh',
+            transform: 'scaleX(-1)',
+          }}
+        >
           <Image
             src={capturedImage}
             alt="촬영한 사진"
             fill
             className="object-cover"
             unoptimized={capturedImage.startsWith('data:')}
+            quality={100}
             priority
           />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* 오버레이 - 금지체장이면 검은색, 아니면 하얀색 */}
       {data.isProhibited ? (
