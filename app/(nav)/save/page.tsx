@@ -5,16 +5,18 @@ import Image from "next/image";
 import { useTabBarGradient } from "@/app/components/ui/tabBar/TabBarGradientContext";
 import Button from "@/app/components/shared/Button";
 import ProductComparisonTable from "@/app/components/shared/ProductComparisonTable";
-import { getMerchantRecordList } from "@/app/lib/api/merchantRecordList";
+import { useMerchantRecordList } from "@/app/hooks/useMerchantRecordList";
 import { getMerchantPrice } from "@/app/lib/utils/merchantPriceStorage";
-import type { RecordDetail } from "@/app/types/api";
 import type { ProductComparisonTable as ProductComparisonTableType } from "@/app/types/product";
 
 export default function SavePage() {
   const { setEnabled, setChildren } = useTabBarGradient();
   const [isSelecting, setIsSelecting] = useState(false);
-  const [records, setRecords] = useState<RecordDetail[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // React Query로 데이터 가져오기
+  const { data, isLoading, isError } = useMerchantRecordList(1, 100);
+  const records = data?.data.record || [];
 
   const handleSelectProducts = useCallback(() => {
     console.log("구매할 상품 선택하기 클릭");
@@ -60,24 +62,6 @@ export default function SavePage() {
     }
   }, [isSelecting, handleSelectProducts, handleFindRoute, handleCancel]);
 
-  // API 데이터 가져오기
-  useEffect(() => {
-    const fetchRecords = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getMerchantRecordList(1, 100);
-        setRecords(response.data.record);
-        console.log('상인 기록 목록:', response.data.record);
-      } catch (error) {
-        console.error('상인 기록 가져오기 실패:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchRecords();
-  }, []);
-
   useEffect(() => {
     setChildren(buttonContent);
     setEnabled(true);
@@ -90,8 +74,15 @@ export default function SavePage() {
 
   // API 데이터를 ProductComparisonTable 형태로 변환
   const comparisonTables = useMemo<ProductComparisonTableType[]>(() => {
+    // 검색어로 필터링
+    const filteredRecords = searchQuery.trim()
+      ? records.filter((record) =>
+          record.stats.seafoodType.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : records;
+
     // seafoodType별로 그룹화
-    const groupedRecords = records.reduce((acc, record) => {
+    const groupedRecords = filteredRecords.reduce((acc, record) => {
       const type = record.stats.seafoodType;
       if (!acc[type]) {
         acc[type] = [];
@@ -137,7 +128,7 @@ export default function SavePage() {
         };
       }),
     }));
-  }, [records]);
+  }, [records, searchQuery]);
 
   if (isLoading) {
     return (
@@ -167,20 +158,29 @@ export default function SavePage() {
           <input
             type="text"
             placeholder="가성비 좋은 해산물..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 bg-transparent font-regular text-16 text-gray-secondary outline-none placeholder:text-gray-secondary"
           />
         </div>
       </div>
-      {comparisonTables.map((table, index) => (
-        <ProductComparisonTable
-          key={index}
-          title={table.title}
-          showTitle={table.showTitle && index === 0}
-          rows={table.rows}
-          tableIndex={index}
-          isSelecting={isSelecting}
-        />
-      ))}
+      {comparisonTables.length === 0 ? (
+        <div className="flex-col items-center justify-center py-20 gap-4">
+          <p className="text-gray-003 text-20 font-medium">검색 결과가 없습니다</p>
+          <p className="text-gray-secondary text-16">다른 검색어로 시도해보세요</p>
+        </div>
+      ) : (
+        comparisonTables.map((table, index) => (
+          <ProductComparisonTable
+            key={index}
+            title={table.title}
+            showTitle={table.showTitle && index === 0}
+            rows={table.rows}
+            tableIndex={index}
+            isSelecting={isSelecting}
+          />
+        ))
+      )}
     </div>
   );
 }
