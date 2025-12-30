@@ -10,8 +10,8 @@ interface ProhibitedOverlayProps {
 
 const ProhibitedOverlay = ({ onExit, onReport }: ProhibitedOverlayProps) => {
   return (
-    <div className="absolute bottom-0 left-0 right-0 bg-gray-004 rounded-t-[32px]">
-      <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-9 min-h-full">
+    <div className="absolute bottom-0 left-0 right-0 bg-gray-004 rounded-t-[32px] max-h-[75vh]">
+      <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-9 overflow-y-auto">
         {/* 금지 메시지 */}
         <div className="flex-col gap-[12px] animate-fade-in-up">
           <p className="font-bold text-24 text-white text-center">
