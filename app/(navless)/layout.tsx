@@ -12,7 +12,7 @@ export default function NavlessLayout({
 }>) {
   return (
     <div className="mx-auto min-h-screen flex flex-col bg-white" style={{ maxWidth: 'var(--max-width-mobile)' }}>
-      <main className="flex-1 px-8 pt-9">
+      <main className="flex-1">
         {children}
       </main>
     </div>
