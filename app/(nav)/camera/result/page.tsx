@@ -11,7 +11,7 @@ import type { ResultData } from '@/app/types/camera'
 
 const ResultPage = () => {
   const router = useRouter()
-  const { capturedImage, fishAnalysis, formData } = useCameraStore()
+  const { capturedImage, fishAnalysis, formData, reset } = useCameraStore()
 
   console.log('Result Page - capturedImage:', capturedImage)
   console.log('Result Page - fishAnalysis:', fishAnalysis)
@@ -58,12 +58,17 @@ const ResultPage = () => {
   }
 
   const handleBrowse = () => {
-    // TODO: 둘러보기 로직 구현
-    console.log('둘러보기 버튼 클릭됨')
+    // 분석 데이터 초기화
+    reset()
+    // 홈으로 이동
+    router.push('/')
   }
 
   const handleExit = () => {
-    router.back()
+    // 분석 데이터 초기화
+    reset()
+    // 홈으로 이동
+    router.push('/')
   }
 
   const handleReport = () => {
