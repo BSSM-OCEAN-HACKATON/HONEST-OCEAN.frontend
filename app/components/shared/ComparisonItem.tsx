@@ -11,22 +11,22 @@ interface ComparisonItemProps {
 
 const ComparisonItem = ({ imageUrl, title, description }: ComparisonItemProps) => {
   return (
-    <div className="flex gap-[6px] items-center">
-      <div className="relative rounded-[6px] size-[36px] overflow-hidden bg-[#d9d9d9]">
+    <div className="flex gap-[6px] items-center overflow-hidden">
+      <div className="rounded-md size-9 shrink-0 overflow-hidden bg-gray-placeholder">
         <Image
           src={imageUrl}
           alt={title}
           width={36}
           height={36}
-          className="absolute object-cover rounded-[6px] size-full"
+          className="object-cover w-full h-full"
           unoptimized={imageUrl.startsWith('http://localhost:')}
         />
       </div>
-      <div className="flex-col w-[294px]">
-        <p className="font-bold text-[13px] text-[#292929]">
+      <div className="flex-col flex-1 min-w-0">
+        <p className="font-bold text-[13px] text-gray-003 truncate">
           {title}
         </p>
-        <p className="font-regular text-16 text-[#808080]">
+        <p className="font-regular text-16 text-gray-secondary truncate">
           {description}
         </p>
       </div>

@@ -51,28 +51,26 @@ const WebCamCamera = ({ onCapture }: WebCamCameraProps) => {
   }
 
   return (
-    <div className="fixed inset-0 w-full h-full">
-        <div className="relative w-full h-full">
-                <Webcam
-                    audio={false}
-                    ref={webcamRef}
-                    screenshotFormat="image/jpeg"
-                    videoConstraints={videoConstraints}
-                    className="absolute inset-0 w-full h-full object-cover"
-                />
-          {/* 원형 촬영 버튼 오버레이 */}
-          <button
-            onClick={capture}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors z-10"
-            aria-label="사진 촬영"
-          />
-          {/* 카메라 전환 버튼 */}
-          <button
-            onClick={switchCamera}
-            className="absolute top-8 right-8 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
-            aria-label="카메라 전환"
-          />
-        </div>
+    <div className="fixed inset-0">
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        videoConstraints={videoConstraints}
+        className="w-full h-full object-cover"
+      />
+      {/* 원형 촬영 버튼 오버레이 */}
+      <button
+        onClick={capture}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors z-10"
+        aria-label="사진 촬영"
+      />
+      {/* 카메라 전환 버튼 */}
+      <button
+        onClick={switchCamera}
+        className="absolute top-8 right-8 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
+        aria-label="카메라 전환"
+      />
     </div>
   )
 }

@@ -6,22 +6,23 @@ interface ButtonProps {
   text: string
   onClick: () => void
   variant?: 'primary' | 'secondary'
+  fullWidth?: boolean
 }
 
-const Button = ({ text, onClick, variant = 'primary' }: ButtonProps) => {
-  const baseClasses = 'flex-center rounded-[12px] flex-1 h-[45px] px-[23px] py-[10px]'
-  const variantClasses = variant === 'primary' 
-    ? 'bg-gray-003 text-white' 
+const Button = ({ text, onClick, variant = 'primary', fullWidth = true }: ButtonProps) => {
+  const baseClasses = `flex-center rounded-[12px] px-[23px] py-[10px] ${fullWidth ? 'flex-1' : ''}`
+  const variantClasses = variant === 'primary'
+    ? 'bg-gray-003 text-white'
     : 'bg-gray-002 text-[#292929]'
-  
+
   return (
-    <button 
+    <button
       className={`${baseClasses} ${variantClasses}`}
       onClick={onClick}
     >
-      <p className="font-regular text-20">
+      <span className="font-regular text-20">
         {text}
-      </p>
+      </span>
     </button>
   )
 }

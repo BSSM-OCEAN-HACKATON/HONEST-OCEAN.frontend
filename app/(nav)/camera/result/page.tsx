@@ -1,13 +1,13 @@
 'use client'
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import InfoCard from '@/app/components/shared/InfoCard'
 import ComparisonItem from '@/app/components/shared/ComparisonItem'
 import Button from '@/app/components/shared/Button'
 
-const ResultPage = () => {
+function ResultContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const imageSrc = searchParams.get('image') || ''
@@ -41,7 +41,7 @@ const ResultPage = () => {
 
   const handlePurchase = () => {
     // 완료 페이지로 이동
-    router.push('/camera/result/complete')
+    router.push('/camera/complete')
   }
 
   const handleBrowse = () => {
@@ -50,9 +50,9 @@ const ResultPage = () => {
   }
 
   return (
-    <div className="flex-col min-h-screen" style={{ maxWidth: 'var(--max-width-mobile)' }}>
+    <div className="flex-col min-h-screen">
       {/* 배경 - 이미지가 있으면 이미지, 없으면 검은색 */}
-      <div className="relative h-[346px] bg-black">
+      <div className="relative min-h-[346px] bg-black">
         {imageSrc && (
           <Image
             src={imageSrc}
@@ -66,14 +66,14 @@ const ResultPage = () => {
       </div>
 
       {/* 하얀색 오버레이 */}
-      <div className="bg-white flex-1" style={{ borderTopLeftRadius: '32px', borderTopRightRadius: '32px' }}>
+      <div className="bg-white flex-1 rounded-t-[32px]">
         <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-[36px]">
           {/* 적정가 정보 */}
           <div className="flex-col gap-[4px]">
-            <p className="font-bold text-24 text-[#292929] text-center">
+            <p className="font-bold text-24 text-gray-003 text-center">
               적정가 {data.appropriatePrice.toLocaleString()}원
             </p>
-            <p className="font-regular text-16 text-[#808080] leading-[1.3]">
+            <p className="font-regular text-16 text-gray-secondary leading-[1.3]">
               상인이 제시한 가격이 적정가보다 {data.priceDifference}% 높아요.
             </p>
           </div>
@@ -88,7 +88,7 @@ const ResultPage = () => {
 
           {/* 비교 섹션 */}
           <div className="flex-col gap-[12px]">
-            <p className="font-bold text-14 text-[#292929]">
+            <p className="font-bold text-14 text-gray-003">
               오늘 본 대게와 비교하기
             </p>
             <div className="h-px bg-gray-002" />
@@ -115,5 +115,12 @@ const ResultPage = () => {
   )
 }
 
-export default ResultPage
+const ResultPage = () => {
+  return (
+    <Suspense fallback={<div className="flex-col min-h-screen bg-black" />}>
+      <ResultContent />
+    </Suspense>
+  )
+}
 
+export default ResultPage

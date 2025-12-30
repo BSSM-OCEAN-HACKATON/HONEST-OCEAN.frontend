@@ -29,6 +29,8 @@
   --color-gray-002: #EFEFEF;
   --color-gray-003: #353535;
   --color-gray-004: #0B0B0B;
+  --color-gray-secondary: #808080;
+  --color-gray-placeholder: #d9d9d9;
 }
 
 /* Tailwind v4 utility classes for font sizes */
@@ -63,6 +65,20 @@
 
 @utility font-bold {
   font-weight: var(--font-weight-bold);
+}
+
+/* Max width utility */
+@utility max-w-mobile {
+  max-width: var(--max-width-mobile);
+}
+
+/* Additional color utilities */
+@utility text-gray-secondary {
+  color: var(--color-gray-secondary);
+}
+
+@utility bg-gray-placeholder {
+  background-color: var(--color-gray-placeholder);
 }
 
 
