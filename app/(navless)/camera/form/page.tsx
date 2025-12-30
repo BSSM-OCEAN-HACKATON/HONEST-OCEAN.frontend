@@ -14,8 +14,8 @@ const page = () => {
     <div className="flex-col justify-center min-h-[calc(100vh-200px)] relative">
       <PriceForm />
 
-      {/* 완료 버튼 - 바닥에서 안전한 거리만큼 위에 고정 */}
-      <div className="fixed bottom-24 left-8 right-8 z-40">
+      {/* 완료 버튼 - TabBar 위쪽에 고정 */}
+      <div className="fixed bottom-20 left-8 right-8 z-40">
         <Button text="완료했어요" onClick={handleComplete} />
       </div>
     </div>
