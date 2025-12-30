@@ -12,8 +12,8 @@ export default function NavLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="mx-auto min-h-screen flex flex-col bg-white" style={{ maxWidth: 'var(--max-width-mobile)' }}>
-      <main className="flex-1 px-8 pt-9">
+    <div className="mx-auto min-h-screen flex flex-col bg-white overflow-x-hidden" style={{ maxWidth: 'var(--max-width-mobile)' }}>
+      <main className="flex-1 px-8 pt-9 overflow-x-hidden">
         {children}
       </main>
       <TabBar />

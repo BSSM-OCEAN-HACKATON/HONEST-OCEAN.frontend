@@ -66,11 +66,21 @@
 }
 
 
+html, body {
+  overflow-x: hidden;
+  touch-action: pan-y;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   font-weight: var(--font-weight-regular);
+}
+
+main {
+  overflow-x: hidden;
+  touch-action: pan-y;
 }
 
 .flex-row {

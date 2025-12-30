@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import InfoCard from '@/app/components/shared/InfoCard'
 import ComparisonItem from '@/app/components/shared/ComparisonItem'
@@ -9,6 +9,7 @@ import Button from '@/app/components/shared/Button'
 
 const ResultPage = () => {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const imageSrc = searchParams.get('image') || ''
 
   // TODO: 실제 데이터로 교체 필요
@@ -39,8 +40,8 @@ const ResultPage = () => {
   }
 
   const handlePurchase = () => {
-    // TODO: 구매 로직 구현
-    console.log('구매했어요 버튼 클릭됨')
+    // 완료 페이지로 이동
+    router.push('/camera/result/complete')
   }
 
   const handleBrowse = () => {
