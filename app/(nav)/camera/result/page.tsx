@@ -50,9 +50,9 @@ function ResultContent() {
   }
 
   return (
-    <div className="flex-col min-h-screen">
+    <div className="relative flex-col h-screen">
       {/* 배경 - 이미지가 있으면 이미지, 없으면 검은색 */}
-      <div className="relative min-h-[346px] bg-black">
+      <div className="relative h-[346px] shrink-0 bg-black">
         {imageSrc && (
           <Image
             src={imageSrc}
@@ -66,10 +66,10 @@ function ResultContent() {
       </div>
 
       {/* 하얀색 오버레이 */}
-      <div className="bg-white flex-1 rounded-t-[32px]">
-        <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-9">
+      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px]">
+        <div className="flex-col gap-[36px] px-[30px] pt-[36px] pb-9 min-h-full">
           {/* 적정가 정보 */}
-          <div className="flex-col gap-[4px]">
+          <div className="flex-col gap-[4px] animate-fade-in-up">
             <p className="font-bold text-24 text-gray-003 text-center">
               적정가 {data.appropriatePrice.toLocaleString()}원
             </p>
@@ -79,7 +79,7 @@ function ResultContent() {
           </div>
 
           {/* 정보 카드 그리드 */}
-          <div className="flex gap-[9px] items-center">
+          <div className="flex gap-[9px] items-center animate-fade-in-up-delay-1">
             <InfoCard label="바가지 위험도" value={data.riskLevel} />
             <InfoCard label="인분" value={data.servings} />
             <InfoCard label="예상무게" value={data.estimatedWeight} />
@@ -87,7 +87,7 @@ function ResultContent() {
           </div>
 
           {/* 비교 섹션 */}
-          <div className="flex-col gap-[12px]">
+          <div className="flex-col gap-[12px] animate-fade-in-up-delay-2">
             <p className="font-bold text-14 text-gray-003">
               오늘 본 대게와 비교하기
             </p>
@@ -105,7 +105,7 @@ function ResultContent() {
           </div>
 
           {/* 액션 버튼 */}
-          <div className="flex gap-[9px]">
+          <div className="flex gap-[9px] animate-fade-in-up-delay-3">
             <Button text="구매했어요" onClick={handlePurchase} variant="primary" />
             <Button text="둘러보기" onClick={handleBrowse} variant="secondary" />
           </div>

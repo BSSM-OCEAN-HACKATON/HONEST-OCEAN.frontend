@@ -60,7 +60,7 @@ const PriceForm = ({ totalPrice: initialTotalPrice = 8000, onSubmit }: PriceForm
   return (
     <form onSubmit={handleSubmit} className="flex-col gap-8">
       {/* 상인이 제안한 전체 가격 */}
-      <div className="flex-col gap-1">
+      <div className="flex-col gap-1 animate-fade-in-up">
         <label className="text-20 text-gray-003">상인이 제안한 전체 가격</label>
         <button
           type="button"
@@ -91,7 +91,7 @@ const PriceForm = ({ totalPrice: initialTotalPrice = 8000, onSubmit }: PriceForm
       )}
 
       {/* 구매할 상품의 갯수 */}
-      <div className="flex-col gap-1 space-between">
+      <div className="flex-col gap-1 space-between animate-fade-in-up-delay-1">
         <label className="text-20 text-gray-003">구매할 상품의 갯수</label>
         <div className="flex-row items-center gap-2 justify-between font-bold">
           <span className="text-40">{quantity}개</span>
@@ -100,7 +100,7 @@ const PriceForm = ({ totalPrice: initialTotalPrice = 8000, onSubmit }: PriceForm
       </div>
 
       {/* 상인이 제안한 개당 가격 */}
-      <div className="flex-col gap-1">
+      <div className="flex-col gap-1 animate-fade-in-up-delay-2">
         <label className="text-20 text-gray-003">상인이 제안한 개당 가격</label>
         <div className="text-40 font-bold">{pricePerItem.toLocaleString()}원</div>
       </div>

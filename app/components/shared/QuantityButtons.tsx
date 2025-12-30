@@ -10,7 +10,9 @@ interface QuantityButtonsProps {
 
 const QuantityButtons = ({ onIncrement, onDecrement }: QuantityButtonsProps) => {
   return (
-    <div className="flex-row gap-[5px] items-center">
+    <div
+      className="flex-row gap-[5px] items-center opacity-0 animate-fade-in"
+    >
       <button
         onClick={onDecrement}
         className="w-12 h-12"
