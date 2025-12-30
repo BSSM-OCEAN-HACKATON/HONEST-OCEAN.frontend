@@ -3,21 +3,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --max-width-mobile: 393px; /* 모바일 최대 너비 */
 }
 
 
 @theme inline {
   /* --color-background: var(--background);
   --color-foreground: var(--foreground); */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   
-  /* Font sizes */
+  /* Font sizes - Tailwind v4에서 font-size-*로 정의하면 text-* 클래스가 자동 생성됨 */
+  --font-size-40: 2.5rem; /* 40px */
   --font-size-24: 1.5rem; /* 24px */
   --font-size-20: 1.25rem; /* 20px */
   --font-size-16: 1rem; /* 16px */
   --font-size-14: 0.875rem; /* 14px */
   --font-size-12: 0.75rem; /* 12px */
+  
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
   
   /* Gray colors */
   --color-gray-001: rgb(255, 255, 255);
@@ -26,11 +31,46 @@
   --color-gray-004: #0B0B0B;
 }
 
+/* Tailwind v4 utility classes for font sizes */
+@utility text-40 {
+  font-size: var(--font-size-40);
+}
+
+@utility text-24 {
+  font-size: var(--font-size-24);
+}
+
+@utility text-20 {
+  font-size: var(--font-size-20);
+}
+
+@utility text-16 {
+  font-size: var(--font-size-16);
+}
+
+@utility text-14 {
+  font-size: var(--font-size-14);
+}
+
+@utility text-12 {
+  font-size: var(--font-size-12);
+}
+
+/* Font weight utilities */
+@utility font-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+@utility font-bold {
+  font-weight: var(--font-weight-bold);
+}
+
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
 }
 
 .flex-row {
@@ -47,4 +87,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+input {
+  border: none !important;
+  outline: none !important;
+}
+
+:root {
+  font-size: 20px;
 }
